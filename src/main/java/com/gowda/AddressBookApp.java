@@ -11,11 +11,13 @@ public class AddressBookApp {
 
         System.out.println("Press 1 to add contact");
         System.out.println("Press 2 to delete contact");
+        System.out.println("Press 3 to edit contact");
         int num = sc.nextInt();
 
         switch (num){
             case 1:func.addContact();
             case 2:func.deleteContact();
+            case 3:func.editContact();
 
             default:
         }
