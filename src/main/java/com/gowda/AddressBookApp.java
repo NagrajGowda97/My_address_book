@@ -15,7 +15,9 @@ public class AddressBookApp {
 
         switch (num){
             case 1:func.addContact();
+                break;
             case 2:func.deleteContact();
+                break;
 
             default:
         }
