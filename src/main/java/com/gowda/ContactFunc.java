@@ -128,7 +128,7 @@ public class ContactFunc {
                 currentAddressBook.add(contact);
             }
         }
-        public void viewCity(String city){
+        public void searchCity(String city){
             System.out.println("Search result: ");
             for (String addressBookName : addressBookList.keySet()) {
                 for (Object p : addressBookList.get(addressBookName)) {
@@ -139,7 +139,7 @@ public class ContactFunc {
                 }
             }
         }
-        public void viewState(String state){
+        public void searchState(String state){
             System.out.println("Search result: ");
             for (String addressBookName : addressBookList.keySet()){
                 for (Object p : addressBookList.get(addressBookName)) {
@@ -151,7 +151,7 @@ public class ContactFunc {
             }
         }
 
-        public void viewZipCode(int zipCode){
+        public void searchZipCode(int zipCode){
             System.out.println("Search result: ");
             for (String addressBookName : addressBookList.keySet()) {
                 for (Object p : addressBookList.get(addressBookName)) {
@@ -162,27 +162,27 @@ public class ContactFunc {
                 }
             }
         }
-        public void viewContactBy(){
+        public void searchContactBy(){
             System.out.println("""
-                    Press 1 to view Contact by city
-                    Press 2 to view Contact by state
-                    Press 3 to view Contact by zip code""");
+                    Press 1 to search Contact by city
+                    Press 2 to search Contact by state
+                    Press 3 to search Contact by zip code""");
             int num = sc.nextInt();
             switch (num){
                 case 1:
                     System.out.println("Enter city name: ");
-                    viewCity(sc.next());
+                    searchCity(sc.next());
                     break;
                 case 2:
                     System.out.println("Enter state name: ");
-                    viewState(sc.next());
+                    searchState(sc.next());
                     break;
                 case 3:
                     System.out.println("Enter zip code: ");
-                    viewZipCode(sc.nextInt());
+                    searchZipCode(sc.nextInt());
                     break;
                 default:
-                    viewContactBy();
+                    searchContactBy();
             }
         }
     void showContacts(ArrayList addressBook) {
