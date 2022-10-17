@@ -18,7 +18,8 @@ public class AddressBookApp {
                      press 5 to search contact by city, state or zip code
                      Press 6 to add new address book or to search address book
                      Press 7 to Show contact
-                     press 8 to exit""");
+                     Press 8 to view by city, state or zip code
+                     press 9 to exit""");
             int num = sc.nextInt();
 
             switch (num) {
@@ -35,7 +36,7 @@ public class AddressBookApp {
                     func.multipleContact();
                     break;
                 case 5:
-                    func.viewContactBy();
+                    func.searchContactBy();
                     break;
                 case 6:
                     func.chooseAddressBook();
@@ -44,6 +45,9 @@ public class AddressBookApp {
                     func.showContacts(ContactFunc.currentAddressBook);
                     break;
                 case 8:
+                    func.viewContacts();
+                    break;
+                case 9:
                     exit = true;
                     break;
                 default:

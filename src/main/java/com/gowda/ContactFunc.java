@@ -9,8 +9,10 @@ import java.util.Scanner;
 public class ContactFunc {
     public static HashMap<String, ArrayList> addressBookList  = new HashMap<String, ArrayList>();
     static ArrayList<ContactDetails> currentAddressBook;
-    static String addressBookName;
     static String currentAddressBookName;
+    static HashMap<String, ContactDetails> cityContactList = new HashMap<>();
+    static HashMap<String, ContactDetails> stateContactList = new HashMap<>();
+    static HashMap<Integer, ContactDetails> zipContactList = new HashMap<>();
     static Scanner sc = new Scanner(System.in);
 
     public void addContact(){
@@ -128,61 +130,61 @@ public class ContactFunc {
                 currentAddressBook.add(contact);
             }
         }
-        public void viewCity(String city){
+        public void searchCity(String city){
             System.out.println("Search result: ");
             for (String addressBookName : addressBookList.keySet()) {
                 for (Object p : addressBookList.get(addressBookName)) {
                     ContactDetails person = (ContactDetails) p;
                     if (person.getCity().equalsIgnoreCase(city)) {
-                        System.out.println(currentAddressBook);
+                        System.out.println(person);
                     }
                 }
             }
         }
-        public void viewState(String state){
+        public void searchState(String state){
             System.out.println("Search result: ");
             for (String addressBookName : addressBookList.keySet()){
                 for (Object p : addressBookList.get(addressBookName)) {
                     ContactDetails person = (ContactDetails) p;
                     if (person.getCity().equalsIgnoreCase(state)) {
-                        System.out.println(currentAddressBook);
+                        System.out.println(person);
                     }
                 }
             }
         }
 
-        public void viewZipCode(int zipCode){
+        public void searchZipCode(int zipCode){
             System.out.println("Search result: ");
             for (String addressBookName : addressBookList.keySet()) {
                 for (Object p : addressBookList.get(addressBookName)) {
                     ContactDetails person = (ContactDetails) p;
                     if (person.getZipCode() == zipCode) {
-                        System.out.println(currentAddressBook);
+                        System.out.println(person);
                     }
                 }
             }
         }
-        public void viewContactBy(){
+        public void searchContactBy(){
             System.out.println("""
-                    Press 1 to view Contact by city
-                    Press 2 to view Contact by state
-                    Press 3 to view Contact by zip code""");
+                    Press 1 to search Contact by city
+                    Press 2 to search Contact by state
+                    Press 3 to search Contact by zip code""");
             int num = sc.nextInt();
             switch (num){
                 case 1:
                     System.out.println("Enter city name: ");
-                    viewCity(sc.next());
+                    searchCity(sc.next());
                     break;
                 case 2:
                     System.out.println("Enter state name: ");
-                    viewState(sc.next());
+                    searchState(sc.next());
                     break;
                 case 3:
                     System.out.println("Enter zip code: ");
-                    viewZipCode(sc.nextInt());
+                    searchZipCode(sc.nextInt());
                     break;
                 default:
-                    viewContactBy();
+                    searchContactBy();
             }
         }
     void showContacts(ArrayList addressBook) {
@@ -226,7 +228,52 @@ public class ContactFunc {
                 break;
         }
     }
+    public void viewContacts() {
+        System.out.println("*****************************\n1.View by City \n2.View by State \n3.View by Zip code");
+        switch (sc.nextInt()) {
+            case 1:
+                viewContactByCity();
+                break;
+            case 2:
+                viewContactByState();
+                break;
+            case 3:
+                viewContactByZipCode();
+                break;
+            default:
+                viewContacts();
+                break;
+        }
+    }
 
+    public void viewContactByCity() {
+        System.out.println("Enter City:");
+        String city = sc.next();
+        for (String key : cityContactList.keySet()) {
+            if (key.equalsIgnoreCase(city)){
+                System.out.println(cityContactList.get(city));
+            }
+        }
+    }
+    public void viewContactByState() {
+        System.out.println("Enter State:");
+        String state = sc.next();
+        for (String key : stateContactList.keySet()) {
+            if (key.equalsIgnoreCase(state)){
+                System.out.println(stateContactList.get(state));
+            }
+        }
+    }
+
+    public void viewContactByZipCode(){
+        System.out.println("Enter Zip Code");
+        int zipCode = sc.nextInt();
+        for (int key : zipContactList.keySet()) {
+            if (key == zipCode){
+                System.out.println(zipContactList.get(zipCode));
+            }
+        }
+    }
     public void display () {
             System.out.println(currentAddressBook);
         }
