@@ -1,10 +1,8 @@
 package com.gowda;
 
-import java.util.ArrayList;
+import java.util.*;
 
-import java.util.HashMap;
-
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class ContactFunc {
     public static HashMap<String, ArrayList> addressBookList  = new HashMap<String, ArrayList>();
@@ -14,6 +12,7 @@ public class ContactFunc {
     static HashMap<String, ContactDetails> stateContactList = new HashMap<>();
     static HashMap<Integer, ContactDetails> zipContactList = new HashMap<>();
     static Scanner sc = new Scanner(System.in);
+
 
     public void addContact(){
 
@@ -229,7 +228,10 @@ public class ContactFunc {
         }
     }
     public void viewContacts() {
-        System.out.println("*****************************\n1.View by City \n2.View by State \n3.View by Zip code");
+        System.out.println("""
+                Press 1 for View by City 
+                Press 2 for View by State 
+                Press 3 for View by Zip code""");
         switch (sc.nextInt()) {
             case 1:
                 viewContactByCity();
@@ -274,6 +276,48 @@ public class ContactFunc {
             }
         }
     }
+    public void sortContacts(){
+        List<ContactDetails> allContacts = getAllContacts();
+        List<ContactDetails> sortedContacts;
+        System.out.println("""
+                Press 1 to sort by name
+                Press 2 to sort by city
+                Press 3 to sort by state
+                Press 4 to sort by zip code
+                Press 5 to go back""");
+        switch (sc.nextInt()){
+            case 1:
+                sortedContacts = allContacts.stream().sorted(Comparator.comparing(ContactDetails::getFirstName)).collect(Collectors.toList());
+                sortedContacts.forEach(System.out::println);
+                break;
+            case 2:
+                sortedContacts = allContacts.stream().sorted(Comparator.comparing(ContactDetails::getCity)).collect(Collectors.toList());
+                sortedContacts.forEach(System.out::println);
+                break;
+            case 3:
+                sortedContacts = allContacts.stream().sorted(Comparator.comparing(ContactDetails::getState)).collect(Collectors.toList());
+                sortedContacts.forEach(System.out::println);
+                break;
+            case 4:
+                sortedContacts = allContacts.stream().sorted(Comparator.comparing(ContactDetails::getZipCode)).collect(Collectors.toList());
+                sortedContacts.forEach(System.out::println);
+                break;
+            case 5:
+                break;
+            default:
+                sortContacts();
+                break;
+        }
+    }
+
+     List<ContactDetails> getAllContacts() {
+        List<ContactDetails> allContacts = new ArrayList<>();
+        for (String key: addressBookList.keySet()){
+            allContacts.addAll(addressBookList.get(key));
+        }
+        return allContacts;
+    }
+
     public void display () {
             System.out.println(currentAddressBook);
         }

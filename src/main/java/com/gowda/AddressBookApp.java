@@ -10,6 +10,9 @@ public class AddressBookApp {
         boolean exit = false;
 
         while (!exit) {
+            System.out.println("*****************\n"+ContactFunc.addressBookList.keySet());
+            System.out.println("current address book name: "+ ContactFunc.currentAddressBookName
+            );
             System.out.println("""
                      Press 1 to add contact
                      Press 2 to delete contact
@@ -19,7 +22,8 @@ public class AddressBookApp {
                      Press 6 to add new address book or to search address book
                      Press 7 to Show contact
                      Press 8 to view by city, state or zip code
-                     press 9 to exit""");
+                     Press 9 to sort contacts by Name, City, State or Zip code
+                     press 10 to exit""");
             int num = sc.nextInt();
 
             switch (num) {
@@ -48,9 +52,14 @@ public class AddressBookApp {
                     func.viewContacts();
                     break;
                 case 9:
+                    func.sortContacts();
+                    break;
+                case 10:
                     exit = true;
                     break;
                 default:
+                    System.out.println(num +" Key is not valid option");
+                    break;
             }
             func.display();
         }
