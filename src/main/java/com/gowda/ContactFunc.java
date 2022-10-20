@@ -2,6 +2,7 @@ package com.gowda;
 
 import java.util.*;
 
+import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 public class ContactFunc {
@@ -13,7 +14,6 @@ public class ContactFunc {
     static HashMap<Integer, ContactDetails> zipContactList = new HashMap<>();
     static Scanner sc = new Scanner(System.in);
 
-
     public void addContact(){
 
         System.out.println("Enter First Name");
@@ -22,6 +22,11 @@ public class ContactFunc {
         String middleName = sc.next();
         System.out.println("Enter Last Name");
         String lastName = sc.next();
+
+        Matcher matchFirstName = AddressBookRegex.nameRegex.matcher(firstName);
+        Matcher matchMiddleName = AddressBookRegex.nameRegex.matcher(middleName);
+        Matcher matchLastName = AddressBookRegex.nameRegex.matcher(lastName);
+
         //this for loop will check weather entered contact have any duplicate or not.
         //if any duplicate is present then it will not continue further to save contact, if no duplicate is present it save contact.
         for (ContactDetails contact : currentAddressBook) {
@@ -31,21 +36,52 @@ public class ContactFunc {
             }
         }
             ContactDetails contact = new ContactDetails();
-            contact.setFirstName(firstName);
-            contact.setMiddleName(middleName);
-            contact.setLastName(lastName);
+            if (matchFirstName.matches() && matchMiddleName.matches() && matchLastName.matches()) {
+                contact.setFirstName(firstName);
+                contact.setMiddleName(middleName);
+                contact.setLastName(lastName);
+            }
+            else {
+                System.out.println("first letter should be capital");
+                return;
+            }
             System.out.println("Address");
-            contact.setAddress(sc.next());
+            String address = sc.next();
             System.out.println("City");
-            contact.setCity(sc.next());
+            String city = sc.next();
             System.out.println("State");
-            contact.setState(sc.next());
+            String state = sc.next();
             System.out.println("Zip code");
-            contact.setZipCode(sc.nextInt());
+            String zipCode = sc.next();
             System.out.println("Phone Number");
-            contact.setPhNumber(sc.nextLong());
+            String phoneNo = sc.next();
             System.out.println("Email address");
-            contact.setMailId(sc.next());
+            String email = sc.next();
+
+            if (address.matches(String.valueOf(AddressBookRegex.nameRegex)) && city.matches(String.valueOf(AddressBookRegex.nameRegex)) && state.matches(String.valueOf(AddressBookRegex.nameRegex)
+            )){
+                contact.setAddress(address);
+                contact.setCity(city);
+                contact.setState(state);
+            }else {
+                System.out.println("first letter should be capital");
+            }
+
+            if (zipCode.matches(String.valueOf(AddressBookRegex.zipRegex))){
+                contact.setZipCode(Integer.parseInt(zipCode));
+            }
+            else System.out.println("enter valid zip code");
+
+            if (phoneNo.matches(String.valueOf(AddressBookRegex.phoneRegex))){
+                contact.setPhNumber(Long.parseLong(phoneNo));
+            }
+            else System.out.println("enter valid phone number");
+
+            if (email.matches(String.valueOf(AddressBookRegex.emailRegex))){
+                contact.setMailId(email);
+            }
+            else System.out.println("enter valid email id");
+
             currentAddressBook.add(contact);
 
         }
@@ -78,23 +114,37 @@ public class ContactFunc {
 
                 if (contact.getFirstName().equalsIgnoreCase(firstName) && contact.getMiddleName().equalsIgnoreCase(middleName) && contact.getLastName().equalsIgnoreCase(lastName)) {
                     System.out.println("Enter First Name");
-                    contact.setFirstName(sc.next());
+                    String firstName1 = sc.next();
                     System.out.println("Enter Middle Name");
-                    contact.setMiddleName(sc.next());
+                    String middleName1 = sc.next();
                     System.out.println("Enter Last Name");
-                    contact.setLastName(sc.next());
+                    String lastName1 = sc.next();
                     System.out.println("Address");
-                    contact.setAddress(sc.next());
+                    String address = sc.next();
                     System.out.println("City");
-                    contact.setCity(sc.next());
+                    String city = sc.next();
                     System.out.println("State");
-                    contact.setState(sc.next());
+                    String state = sc.next();
                     System.out.println("Zip code");
-                    contact.setZipCode(sc.nextInt());
+                    String zipCode = sc.next();
                     System.out.println("Phone Number");
-                    contact.setPhNumber(sc.nextLong());
+                    String phoneNo = sc.next();
                     System.out.println("Email address");
-                    contact.setMailId(sc.next());
+                    String email = sc.next();
+
+                    if (firstName1.matches(String.valueOf(AddressBookRegex.nameRegex)) && middleName1.matches(String.valueOf(AddressBookRegex.nameRegex)) && lastName1.matches(String.valueOf(AddressBookRegex.nameRegex)) &&
+                    address.matches(String.valueOf(AddressBookRegex.nameRegex)) && city.matches(String.valueOf(AddressBookRegex.nameRegex)) && state.matches(String.valueOf(AddressBookRegex.nameRegex))
+                    && zipCode.matches(String.valueOf(AddressBookRegex.zipRegex)) && phoneNo.matches(String.valueOf(AddressBookRegex.phoneRegex)) && email.matches(String.valueOf(AddressBookRegex.nameRegex))){
+                        contact.setFirstName(firstName1);
+                        contact.setMiddleName(middleName1);
+                        contact.setLastName(lastName1);
+                        contact.setAddress(address);
+                        contact.setCity(city);
+                        contact.setState(state);
+                        contact.setZipCode(Integer.parseInt(zipCode));
+                        contact.setPhNumber(Long.parseLong(phoneNo));
+                        contact.setMailId(email);
+                    }else System.out.println("enter valid details");
 
                     currentAddressBook.add(contact);
                 } else {

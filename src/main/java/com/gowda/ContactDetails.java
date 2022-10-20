@@ -69,8 +69,8 @@ public class ContactDetails {
     public long getPhNumber(long l) {
         return phNumber;
     }
-    public void setPhNumber(long phNumber) {
-        this.phNumber = phNumber;
+    public void setPhNumber(long nextLong) {
+        this.phNumber = nextLong;
     }
     public String getMailId() {
         return mailId;
@@ -81,7 +81,7 @@ public class ContactDetails {
     @Override
     public String toString() {
         return "ContactDetails{" +
-                ",fist name = '"+firstName+'\''+
+                ",first name = '"+firstName+'\''+
                 ",middle name = '"+middleName+'\'' +
                 ",last name = '"+lastName+'\'' +
                 ", address = '" + address + '\'' +
@@ -92,5 +92,8 @@ public class ContactDetails {
                 ", mailId = '" + mailId + '\'' +
                 '}';
     }
+
+
+
 }
 
